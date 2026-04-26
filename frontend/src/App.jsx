@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './index.css';
 
-const API_URL = 'http://127.0.0.1:5000/api';
+const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+  ? 'http://127.0.0.1:5000/api' 
+  : '/_/backend/api';
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token'));
