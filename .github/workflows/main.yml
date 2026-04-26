@@ -1,0 +1,41 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install backend dependencies
+        run: |
+          cd backend
+          pip install -r requirements.txt
+
+      # Optionally run pytests here
+      # - name: Run Backend Tests
+      #   run: |
+      #     cd backend
+      #     pytest
+
+      - name: Build Backend Docker Image
+        run: docker build -t my-dockerhub-user/shop-backend:latest ./backend
+
+      - name: Build Frontend Docker Image
+        run: docker build -t my-dockerhub-user/shop-frontend:latest ./frontend
+
+      # - name: Push to Docker Hub
+      #   run: |
+      #     docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+      #     docker push my-dockerhub-user/shop-backend:latest
+      #     docker push my-dockerhub-user/shop-frontend:latest

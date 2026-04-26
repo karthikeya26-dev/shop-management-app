@@ -1,0 +1,32 @@
+# Node modules
+node_modules/
+dist/
+build/
+.npm
+.vite
+
+# Python Virtual Environments
+venv/
+env/
+.env
+
+# Python Cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# SQLite Local Databases
+backend/instance/
+*.db
+*.sqlite3
+
+# Terraform State files
+terraform/.terraform/
+terraform/*.tfstate
+terraform/*.tfstate.backup
+terraform/.terraform.lock.hcl
+
+# System temp files
+.DS_Store
+Thumbs.db
