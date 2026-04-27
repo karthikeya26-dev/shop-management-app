@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './index.css';
 
-const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
-  ? 'http://127.0.0.1:5000/api' 
+const isLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname) || window.location.port === '5173' || window.location.port === '5174' || window.location.hostname.startsWith('192.168.');
+const API_URL = isLocal 
+  ? '/api' 
   : '/_/backend/api';
 
 function App() {
@@ -40,7 +41,14 @@ function App() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })
       });
-      const data = await res.json();
+      
+      const text = await res.text();
+      let data = {};
+      try {
+        data = text ? JSON.parse(text) : {};
+      } catch (parseErr) {
+        throw new Error(`Server returned non-JSON response (Status ${res.status}). Raw response: "${text.substring(0, 100)}"`);
+      }
       
       if (res.ok) {
         if (authMode === 'register') {
@@ -51,11 +59,11 @@ function App() {
            setToken(data.access_token);
         }
       } else {
-        alert(data.msg || "Authentication failed");
+        alert(data.msg || `Authentication failed (Status ${res.status})`);
       }
     } catch (err) {
       console.error(err);
-      alert("API not running on port 5000, or CORS issue.");
+      alert(`API Connection Failed. Please ensure the backend is running on port 5000.\n\nError details: ${err.message}`);
     }
     setLoading(false);
   };
