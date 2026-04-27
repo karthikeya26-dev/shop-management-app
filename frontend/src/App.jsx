@@ -102,7 +102,7 @@ function App() {
   const addExpense = async () => {
     const desc = window.prompt("Enter expense description (e.g. Server Hosting):");
     if (!desc) return;
-    const amountStr = window.prompt("Enter expense amount ($):");
+    const amountStr = window.prompt("Enter expense amount (₹):");
     if (!amountStr || isNaN(amountStr)) {
         alert("Invalid amount");
         return;
@@ -127,7 +127,7 @@ function App() {
   const createProduct = async () => {
     const name = window.prompt("1. Enter new product name:");
     if (!name) return;
-    const priceStr = window.prompt("2. Enter price per unit ($):");
+    const priceStr = window.prompt("2. Enter price per unit (₹):");
     if (!priceStr) return;
     const stockStr = window.prompt("3. Enter starting STOCK:");
     if (!stockStr) return;
@@ -303,23 +303,23 @@ function App() {
         <div className="stats-grid">
           <div className="stat-card">
             <div className="stat-title">Daily Sales 🚀</div>
-            <div className="stat-value val-green">${stats.daily_sales ? stats.daily_sales.toLocaleString() : 0}</div>
+            <div className="stat-value val-green">₹{stats.daily_sales ? stats.daily_sales.toLocaleString() : 0}</div>
           </div>
           <div className="stat-card">
             <div className="stat-title">Monthly Sales 🗓️</div>
-            <div className="stat-value val-blue">${stats.monthly_sales ? stats.monthly_sales.toLocaleString() : 0}</div>
+            <div className="stat-value val-blue">₹{stats.monthly_sales ? stats.monthly_sales.toLocaleString() : 0}</div>
           </div>
           <div className="stat-card">
             <div className="stat-title">Lifetime Sales</div>
-            <div className="stat-value" style={{color: 'var(--text-main)'}}>${stats.total_sales ? stats.total_sales.toLocaleString() : 0}</div>
+            <div className="stat-value" style={{color: 'var(--text-main)'}}>₹{stats.total_sales ? stats.total_sales.toLocaleString() : 0}</div>
           </div>
           <div className="stat-card">
             <div className="stat-title">Lifetime Expenses</div>
-            <div className="stat-value val-red">${stats.total_expenses ? stats.total_expenses.toLocaleString() : 0}</div>
+            <div className="stat-value val-red">₹{stats.total_expenses ? stats.total_expenses.toLocaleString() : 0}</div>
           </div>
           <div className="stat-card">
             <div className="stat-title">Net Profit 💰</div>
-            <div className="stat-value val-blue">${stats.net_profit ? stats.net_profit.toLocaleString() : 0}</div>
+            <div className="stat-value val-blue">₹{stats.net_profit ? stats.net_profit.toLocaleString() : 0}</div>
           </div>
           <div className="stat-card">
             <div className="stat-title">Stock Alerts ⚠️</div>
@@ -350,7 +350,7 @@ function App() {
                     {products.map(p => (
                         <tr key={p.id}>
                         <td style={{fontWeight: '600'}}>{p.name} <span style={{fontSize:'0.7rem', color:'var(--text-muted)', display:'block'}}>{p.sku}</span></td>
-                        <td>${p.price.toFixed(2)}</td>
+                        <td>₹{p.price.toFixed(2)}</td>
                         <td>
                             <span style={{color: p.stock <= p.low_stock_threshold ? 'var(--danger)' : 'var(--success)', fontWeight: 'bold'}}>
                             {p.stock} units
